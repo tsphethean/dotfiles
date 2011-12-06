@@ -1,3 +1,7 @@
+#personal alias
+alias amacs='aquamacs'
+alias flushdns="dscacheutil -flushcache"
+
 # Unix
 alias tlf="tail -f"
 alias ln='ln -v'

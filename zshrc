@@ -9,7 +9,8 @@ compinit
 setopt auto_cd
 
 # use vim as an editor
-export EDITOR=vim
+# export EDITOR=vim
+export EDITOR="/usr/bin/emacs"
 
 # aliases
 if [ -e "$HOME/.aliases" ]; then
@@ -63,3 +64,44 @@ setopt CORRECT CORRECT_ALL
 
 # Enable extended globbing
 setopt EXTENDED_GLOB
+
+# This resolves issues install the mysql, postgres, and other gems with native non universal binary extensions
+export ARCHFLAGS='-arch x86_64'
+
+# History: don't store duplicates
+export HISTCONTROL=erasedups
+
+# REE
+export RUBY_HEAP_FREE_MIN=1024
+export RUBY_HEAP_MIN_SLOTS=4000000
+export RUBY_HEAP_SLOTS_INCREMENT=250000
+export RUBY_GC_MALLOC_LIMIT=500000000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+
+# extras that shouldn't be in the repo?
+if [ -f ~/.bash_extras ]; then
+  . ~/.bash_extras
+fi
+
+export RUBYOPT=rubygems
+
+#java home
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
+
+#andriod
+export PATH=${PATH}:/Users/danmayer/projects/andriod/android-sdk-mac_86/tools
+export PATH=${PATH}:/Users/danmayer/projects/andriod/android-sdk-mac_86/platform-tools
+
+# setup new gemset
+# example usage: init_gemset mygemset
+function initgemset()
+{
+    local  myresult=`ruby /Users/danmayer/projects/script_helpers/init_gemset.rb $1`
+    eval "$myresult"
+}
+
+alias init_gemset='initgemset'
+
+#load my cinderella profiles, for cinderella configs
+source ~/.cinderella.profile
+
