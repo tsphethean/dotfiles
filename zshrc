@@ -78,11 +78,6 @@ export RUBY_HEAP_SLOTS_INCREMENT=250000
 export RUBY_GC_MALLOC_LIMIT=500000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 
-# extras that shouldn't be in the repo?
-if [ -f ~/.bash_extras ]; then
-  . ~/.bash_extras
-fi
-
 export RUBYOPT=rubygems
 
 #java home
@@ -102,6 +97,7 @@ function initgemset()
 
 alias init_gemset='initgemset'
 
+#pieces taken from https://github.com/myobie/dot-files/blob/master/.bash_profile
 #titlebar update
 directory_to_titlebar () {
   printf "\033]0;%s\007" `fancy_directory`
@@ -154,14 +150,82 @@ directory=${BASH_REMATCH[1]}
     echo "$dir"
 }
 
+#bash title
 if [[ "$TERM" == "xterm" || "$TERM" == "xterm-color" || "$TERM" == "xterm-256color" ]] ; then
   export PROMPT_COMMAND="directory_to_titlebar"
 fi
-
+#zshell title
 precmd () {
   eval "directory_to_titlebar"
 }
 
-#load my cinderella profiles, for cinderella configs
-source ~/.cinderella.profile
+# extras that shouldn't be in the repo?
+if [ -f ~/.bash_extras ]; then
+  . ~/.bash_extras
+fi
 
+# via mojombo http://gist.github.com/180587
+# ps aux grep without grep result
+function psg {
+  ps wwwaux | egrep "($1|%CPU)" | grep -v grep
+}
+
+# sweetness from tim pease:
+
+p() {
+  if [ -n "$1" ]; then
+ps -O ppid -U $USER | grep -i "$1" | grep -v grep
+  else
+ps -O ppid -U $USER
+  fi
+}
+
+pkill() {
+  if [ -z "$1" ]; then
+echo "Usage: pkill [process name]"
+    return 1
+  fi
+
+local pid
+  pid=$(p $1 | awk '{ print $1 }')
+
+  if [ -n "$pid" ]; then
+echo -n "Killing \"$1\" (process $pid)..."
+    kill -9 $pid
+    echo "done."
+  else
+echo "Process \"$1\" not found."
+  fi
+}
+
+# finder
+
+#this needs a fix for zhsell new terminal doesn't have correct dir
+alias twd=new_terminal_working_directory
+function new_terminal_working_directory() {
+osascript <<END
+tell application "Terminal"
+tell application "System Events" to tell process "Terminal" to keystroke "t" using command down
+do script "cd \"$(pwd)\"" in first window
+end tell
+END
+}
+
+alias cf=copy_finder_window_path
+function copy_finder_window_path() {
+osascript <<END
+tell application "Finder"
+set the_folder to (the target of the front window) as alias
+set the_path to (get POSIX path of the_folder)
+set the clipboard to the_path as text
+end tell
+END
+}
+
+alias gf="cf && cd \`pbpaste\` && clear && pwd"
+
+#load my cinderella profiles, for cinderella configs
+. ~/.cinderella.profile
+
+#rvm
+[[ -s "/Users/danmayer/.rvm/scripts/rvm" ]] && source "/Users/danmayer/.rvm/scripts/rvm"
