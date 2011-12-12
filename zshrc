@@ -35,6 +35,10 @@ bindkey "^Y" accept-and-hold
 bindkey "^N" insert-last-word
 bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
 
+# Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
+bindkey "^[[3~" delete-char	
+bindkey "^[3;5~" delete-char
+
 # expand functions in the prompt
 setopt prompt_subst
 
