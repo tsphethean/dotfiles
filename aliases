@@ -1,6 +1,7 @@
 #personal alias
 alias amacs='aquamacs'
 alias flushdns="dscacheutil -flushcache"
+alias dnsflush="dscacheutil -flushcache"
 
 #filesystem
 # find . -type d -print0 | xargs -0 chmod 0775 # For directories
