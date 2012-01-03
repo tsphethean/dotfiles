@@ -1,0 +1,2 @@
+#git view full contents of file from specific version
+git show {hash}:path/to/file 
