@@ -17,6 +17,11 @@ if [ -e "$HOME/.aliases" ]; then
   source "$HOME/.aliases"
 fi
 
+#git support / git shortcuts
+function search-history {
+  git log --pretty=format:'%h was %an, %ar, message: %s' | grep $@ | less
+}
+
 # vi mode
 bindkey -v
 bindkey "^F" vi-cmd-mode
