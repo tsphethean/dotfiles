@@ -3,6 +3,24 @@ alias amacs='aquamacs'
 alias flushdns="dscacheutil -flushcache"
 alias dnsflush="dscacheutil -flushcache"
 
+#from dsims dotfiles (slightly modified)
+alias ip='ifconfig | grep inet'
+alias outside_ip="curl http://automation.whatismyip.com/n09230945.asp | pbcopy && echo '' && pbpaste && echo ''"
+alias tu='top -o cpu'
+alias tm='top -o -vsize'
+alias reload_zsh='source ~/.zshrc'
+
+#redis
+alias redis_log='tail -F /var/log/redis.log'
+
+# general mobile
+alias run_weinre='open /Applications/weinre-mac/weinre.app; nohup show 8081 </dev/null &>/dev/null &'
+# run weinre server if it's not already, and show it at 8081 over showoff.io
+
+# android
+alias android_log_emulator="adb -e logcat"
+alias android_log_device="adb -d logcat"
+
 #filesystem
 # find . -type d -print0 | xargs -0 chmod 0775 # For directories
 alias chmod_dirs="find . -type d -print0 | xargs -0 chmod"
