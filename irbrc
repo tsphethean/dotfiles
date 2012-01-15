@@ -1,59 +1,74 @@
-# taken from @jsmestad's gist - http://gist.github.com/406963
-require 'pp'
+start_load = Time.now
+
 # Make gems available
 require 'rubygems'
 
-# http://drnicutilities.rubyforge.org/map_by_method/
-begin
-  require 'map_by_method'
-rescue LoadError
-  puts 'missing map_by_method for irb support install'
-  puts 'gem install map_by_method'
+def safe_require(name)
+  begin
+    require "#{name}"
+  rescue Exception
+    puts "skipping #{name} gem not available in environment skipping for irb session"
+  end
 end
+
+
+# taken from @jsmestad's gist - http://gist.github.com/406963
+safe_require 'pp'
+
+
+# http://drnicutilities.rubyforge.org/map_by_method/
+safe_require 'map_by_method'
 
 # Dr Nic's gem inspired by
 # http://redhanded.hobix.com/inspect/stickItInYourIrbrcMethodfinder.html
-require 'what_methods'
+safe_require 'what_methods'
 
-require 'ap'
+safe_require 'ap'
 
-# Print information about any HTTP requests being made
-require 'net-http-spy'
+# # Print information about any HTTP requests being made
+safe_require 'net-http-spy'
 
-# Draw ASCII tables
-require 'hirb'
-require 'hirb/import_object'
-Hirb.enable
-extend Hirb::Console
+# # Draw ASCII tables
+safe_require 'hirb'
+safe_require 'hirb/import_object'
+begin
+ Hirb.enable
+ extend Hirb::Console
+rescue Exception
+ puts "Hirb console not enabled"
+end
 
-# 'lp' to show method lookup path
-require 'looksee/shortcuts'
+# # 'lp' to show method lookup path
+safe_require 'looksee/shortcuts'
 
-# Load the readline module.
+# # Load the readline module.
 IRB.conf[:USE_READLINE] = true
 
-# Remove the annoying irb(main):001:0 and replace with >>
+# # Remove the annoying irb(main):001:0 and replace with >>
 IRB.conf[:PROMPT_MODE]  = :SIMPLE
 
-# Tab Completion
-require 'irb/completion'
-
-# Automatic Indentation
+# # Automatic Indentation
 IRB.conf[:AUTO_INDENT]=true
 
-# Save History between irb sessions
-require 'irb/ext/save-history'
+# # Tab Completion
+safe_require 'irb/completion'
+
+# # Save History between irb sessions
+safe_require 'irb/ext/save-history'
 IRB.conf[:SAVE_HISTORY] = 100
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 
-# Wirble is a set of enhancements for irb
-# http://pablotron.org/software/wirble/README
-# Implies require 'pp', 'irb/completion', and 'rubygems'
-require 'wirble'
-Wirble.init
-
-# Enable colored output
-Wirble.colorize
+# # Wirble is a set of enhancements for irb
+# # http://pablotron.org/software/wirble/README
+# # Implies require 'pp', 'irb/completion', and 'rubygems'
+safe_require 'wirble'
+begin
+  Wirble.init
+  # Enable colored output
+  Wirble.colorize
+rescue Exception
+  puts "Wirble couldn't be initilized"
+end
 
 # Clear the screen
 def clear
@@ -132,8 +147,12 @@ class Object
 end
 
 # http://sketches.rubyforge.org/
-require 'sketches'
-Sketches.config :editor => ENV['EDITOR']
+safe_require 'sketches'
+begin
+  Sketches.config :editor => ENV['EDITOR']
+rescue Exception
+   puts "skipping sketches config as gem is not loaded"
+end
 
 # Easily print methods local to an object's class
 class Object
@@ -147,3 +166,5 @@ if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
   require 'logger'
   RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
 end
+
+puts "irb loaded in #{(Time.now - start_load).to_s} sec"
