@@ -1,2 +1,8 @@
 #git view full contents of file from specific version
 git show {hash}:path/to/file 
+
+#emacs commands I forget all the time
+
+#indenting http://www.emacswiki.org/emacs/IndentingText
+C-x TAB (indent region)
+C-u -3 C-x TAB (unindent region 3 places)

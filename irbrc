@@ -15,6 +15,8 @@ end
 # taken from @jsmestad's gist - http://gist.github.com/406963
 safe_require 'pp'
 
+safe_require 'awesome_print'
+
 
 # http://drnicutilities.rubyforge.org/map_by_method/
 safe_require 'map_by_method'
