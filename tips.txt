@@ -1,8 +1,18 @@
 #git view full contents of file from specific version
 git show {hash}:path/to/file 
 
-#emacs commands I forget all the time
+#################
+# emacs commands I forget all the time
+#################
+
+#mostly these are from textmate.el
+cmd-l #jump to line number
+cmd-ctrl-t #textmate open file
+shift-cmd-t #jump to method
 
 #indenting http://www.emacswiki.org/emacs/IndentingText
-C-x TAB (indent region)
-C-u -3 C-x TAB (unindent region 3 places)
+C-x TAB #indent region
+C-u -3 C-x TAB #unindent region 3 places
+cmd-] #  'textmate-shift-right)
+cmd-[ # 'textmate-shift-left)
+
