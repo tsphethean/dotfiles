@@ -50,6 +50,9 @@ setopt prompt_subst
 # prompt
 export PS1='[${SSH_CONNECTION+"%n@%m:"}%~] '
 
+# keep prompt all the way left http://jonisalonen.com/2012/your-bash-prompt-needs-this/
+export PS1="\[\033[G\]$PS1"
+
 # ignore duplicate history entries
 setopt histignoredups
 
@@ -180,7 +183,6 @@ function psg {
 }
 
 # sweetness from tim pease:
-
 p() {
   if [ -n "$1" ]; then
 ps -O ppid -U $USER | grep -i "$1" | grep -v grep

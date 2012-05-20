@@ -16,3 +16,10 @@ C-u -3 C-x TAB #unindent region 3 places
 cmd-] #  'textmate-shift-right)
 cmd-[ # 'textmate-shift-left)
 
+###########################
+# Dev enviroment needed improvements
+###########################
+* fix the 80 char break for html .erb it is far to annoying with our codes html
+* fix the 80 char break on txt files
+* showoff.io play with pow / pow proxy better / showoff restarter
+* indention in emacs update command cmd-] to use spaces and jump 2 not 4
