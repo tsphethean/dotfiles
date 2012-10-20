@@ -1,0 +1,31 @@
+#Host *
+#  ForwardAgent yes
+
+Host dan.my.lsqa.net
+  HostName 10.178.16.172
+  User myqa
+
+Host whatever.my.lsqa.net
+  HostName 10.178.18.47
+  User myqa
+
+Host mobileadv.my.lsqa.net
+  HostName 10.178.18.99
+  User myqa
+
+Host olo.my.lsqa.net
+  HostName 10.178.22.78
+  User myqa
+
+Host mobile.my.lsqa.net
+  HostName 10.178.16.171
+  User myqa
+  ForwardAgent yes
+
+Host b3
+  User dmayer
+  Compression yes
+  CompressionLevel 7
+  TCPKeepAlive yes
+  ServerAliveInterval 5
+  ServerAliveCountMax 12
