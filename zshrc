@@ -99,6 +99,8 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export PATH=${PATH}:/Users/danmayer/projects/andriod/android-sdk-mac_86/tools
 export PATH=${PATH}:/Users/danmayer/projects/andriod/android-sdk-mac_86/platform-tools
 
+export PATH=/usr/local/bin/:${PATH}
+
 # setup new gemset
 # example usage: init_gemset mygemset
 function initgemset()
