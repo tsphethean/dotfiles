@@ -26,8 +26,9 @@
 (textmate-mode)
 
 ;;ruby-test to help with ruby testing
-(add-to-list 'load-path "~/.emacs.d/vendor/ruby-test.el")
-(require 'ruby-test)
+;;check / port ruby-test from work mac, seems to break elsewhere... also move all my ~/.emacs.d files into dotfile or emacs starter project and reference those files...
+;;(add-to-list 'load-path "~/.emacs.d/vendor/ruby-test.el")
+;;(require 'ruby-test)
 
 ;; white space mode
 (add-to-list 'load-path "~/.emacs.d/vendor/whitespace.el")
