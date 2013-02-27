@@ -25,6 +25,10 @@
 (require 'textmate)
 (textmate-mode)
 
+;;ruby-test to help with ruby testing
+(add-to-list 'load-path "~/.emacs.d/vendor/ruby-test.el")
+(require 'ruby-test)
+
 ;; white space mode
 (add-to-list 'load-path "~/.emacs.d/vendor/whitespace.el")
 (require 'whitespace)
@@ -32,10 +36,9 @@
 ;;(add-hook 'ruby-mode-hook 'whitespace-mode)
 
 
-;; ruby-complexity flog scores for methods http://github.com/topfunky/emacs-starter-kit/tree/master/vendor/ruby-complexity/
+;; ruby-complexity
+;; flog scores for methods http://github.com/topfunky/emacs-starter-kit/tree/master/vendor/ruby-complexity/
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/ruby-complexity/")
-
-(require 'linum)
 
 ;;ruby complexity
 ;;(require 'ruby-complexity)
@@ -73,6 +76,18 @@
 ;;(require 'rinari)
 
 
+;; index selection
+;; http://www.emacswiki.org/emacs/IndentingText
+;; Another way is to use `C-x TAB´ to indent the region. 
+;; This indents the region by one column. Use a numeric prefix argument to change this.
+;; Example: `C-u 5 C-x TAB´ to indent by 5. 
+;; Remember that C-u by itself is used as multiplication by 4 – thus
+;; `C-u C-x TAB´ will indent by 4, and `C-u C-u C-x TAB´ will indent by 16.
+;; You can “outdent” the region as well by using a negative prefix: `C-u - 3 C-x TAB´ outdents by 3.
+
+;;sick of typing indent-region bound to C-x \, which in code needs to be escaped as \\
+(global-set-key (kbd "C-x \\") 'indent-region)
+
 ;; move buffer to other window
 ;; after c-x 3 to split screen this lets you move buffers between sides.
 ;; altered code from:
@@ -97,6 +112,7 @@
 (add-to-list 'auto-mode-alist '("\\.Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
 
 
 ;;js indent level
