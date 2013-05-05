@@ -125,3 +125,18 @@
 (remove-hook 'text-mode-hook #'turn-on-auto-fill)
 (turn-off-auto-fill)
 (add-hook 'html-mode-hook 'turn-off-auto-fill)
+
+;;generate etags for ruby project
+(defun build-ctags ()
+  (interactive)
+  (message "building project tags")
+  (let ((root (rinari-root)))
+    (shell-command (concat "ctags -e -R --extra=+fq --exclude=db --exclude=test --exclude=.git --exclude=public -f " root "TAGS " root)))
+  (visit-project-tags)
+  (message "tags built successfully"))
+
+(defun visit-project-tags ()
+  (interactive)
+  (let ((tags-file (concat (eproject-root) "TAGS")))
+    (visit-tags-table tags-file)
+    (message (concat "Loaded " tags-file))))
