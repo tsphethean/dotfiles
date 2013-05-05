@@ -23,10 +23,15 @@
     M-. #goes to the method under the cur­sor, in the same win­dow. First time it asks for the TAGS file.
     C-4 . #goes to the method under the cur­sor. Opens a new win­dow. First time it asks for the TAGS file.
     M-, #loops to the next selection.
+    C-u M-. #Find the next definition for the last tag
+    M-* #Pop back to where you previously invoked "M-."
     
+    #http://www.runtime-era.com/2012/05/exuberant-ctags-in-osx-107.html   
+    brew install ctags-exuberant
     #generate tags for ruby project (run in root of project)
     ctags -f TAGS --extra=-f --languages=-javascript --exclude=.git --exclude=log -e -R . $(rvm gemdir)/gems/
     #http://stackoverflow.com/questions/10120720/generating-emacs-tags-file-for-a-ruby-on-rails-project
+    #http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 
 
     #mostly these are from textmate.el
@@ -63,3 +68,4 @@
 
     * cmd line command to open / run Mou with a file
     * finish porting emacs configs to my dot files project
+    * use githooks to autoupdate my etags or possible guard etags gem
