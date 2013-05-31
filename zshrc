@@ -107,6 +107,11 @@ export PATH=${PATH}:/Users/danmayer/projects/andriod/android-sdk-mac_86/platform
 
 export PATH=/usr/local/bin/:${PATH}
 
+#NPM
+export PATH=/Users/danmayer/Developer/share/npm/bin/:${PATH}
+
+alias mou="open /Applications/Mou.app"
+
 # setup new gemset
 # example usage: init_gemset mygemset
 function initgemset()

@@ -11,6 +11,9 @@
 * showoff.io play with pow / pow proxy better / showoff restarter
 * indention in emacs update command cmd-] to use spaces and jump 2 not 4
 
+# Start Redis
+
+    redis-server
 
 # Emacs commands I forget all the time
 
@@ -64,8 +67,40 @@
 
     ####Emacs blog planetemacsen, http://planet.emacsen.org/
 
+    #(textmate shortcuts) http://github.com/defunkt/textmate.el
+    C-h m (chow current mode)
+    M-x mode name (text-mode, ruby-mode, etc) 
+    C-x o swap cursor between frames
+    C-x ] end of file
+    C-x [ beginning of file
+
 # Todos
 
     * cmd line command to open / run Mou with a file
     * finish porting emacs configs to my dot files project
     * use githooks to autoupdate my etags or possible guard etags gem
+
+# Find all listening ports
+
+`lsof -i | grep LISTEN`
+
+# Remove all local log files
+
+    rm **/log/test.log
+    rm **/log/development.log
+    
+    
+# OSX
+
+    shift+cmd+{ = (or }) #tab left or tab right
+    cmd+W #close tab
+    cmd+tab #switch between windows
+ 
+
+Terminal:
+
+Chrome:
+cmd+l = location bar
+
+Other:
+   /usr/local/Cellar/mysql/5.1.45/share/mysql/mysql.server start
