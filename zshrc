@@ -253,7 +253,8 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 #load my cinderella profiles, for cinderella configs
 . ~/.cinderella.profile
 
-#rvm
-[[ -s "/Users/danmayer/.rvm/scripts/rvm" ]] && source "/Users/danmayer/.rvm/scripts/rvm"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+#rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+CC=/usr/bin/gcc-4.2

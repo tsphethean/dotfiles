@@ -116,6 +116,13 @@
 (add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . nxhtml-mode))
 
+;;add git gutter minor mode
+(add-to-list 'load-path "~/.emacs.d/vendor/git-gutter.el")
+(require 'git-gutter)
+
+;; If you enable global minor mode
+(global-git-gutter-mode t)
+
 ;;js indent level
 (setq js-indent-level 2)
 
