@@ -121,7 +121,8 @@
 (require 'git-gutter)
 
 ;; If you enable global minor mode
-(global-git-gutter-mode t)
+;; this is broken fix later
+;;(global-git-gutter-mode t)
 
 ;;js indent level
 (setq js-indent-level 2)
