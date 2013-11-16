@@ -257,8 +257,10 @@ alias gf="cf && cd \`pbpaste\` && clear && pwd"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 
 #load my cinderella profiles, for cinderella configs
-. ~/.cinderella.profile
+[ -f ~/.cinderella.profile ] && source ~/.cinderella.profile
 
+#new boxen
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 
 #rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
