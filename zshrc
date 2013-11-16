@@ -222,6 +222,12 @@ echo "Process \"$1\" not found."
   fi
 }
 
+function open_branch { open http://code.livingsocial.net/$(whoami)/`basename \`pwd\``/tree/$(git symbolic-ref head| sed -e 's/.*\///g'); }
+function open_branch_gh { open http://github.com/$(whoami)/`basename \`pwd\``/tree/$(git symbolic-ref head| sed -e 's/.*\///g'); }
+
+#better cat with syntax highlights
+alias cat="pygmentize -g"
+
 # finder
 
 #this needs a fix for zhsell new terminal doesn't have correct dir
@@ -258,3 +264,5 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 export PATH="$HOME/.rbenv/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 CC=/usr/bin/gcc-4.2
+
+export PATH="/Users/danmayer/Developer/Cellar/node/0.10.12/bin/node:$PATH"
