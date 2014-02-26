@@ -1,10 +1,3 @@
-;;
-;; Dan amacs NOT emacs custom settings moved to
-;;~/Library/Application Support/Aquamacs Emacs/site-start.el
-;;user configs are in /Users/dmayer/Library/Preferences/Aquamacs\ Emacs/
-;; for shared emacs/amacs add SETTINGS to this file
-;;
-
 ;; No backup files!
 (setq make-backup-files nil)
 
@@ -15,12 +8,14 @@
 (require 'tramp)
 (setq tramp-default-method "ssh")
 
+;; removed
+;; "/opt/local/share/emacs/site-lisp"
+;;       "/usr/share/emacs/site-lisp"
 (setq load-path (append
-                 '("/opt/local/share/emacs/site-lisp"
-       "/usr/share/emacs/site-lisp"
-       "~/.emacs.d/"
-      )
-                 load-path))
+                 '("~/.emacs.d/")
+                load-path))
+
+
 
 ;; textmate bindings for some nicer key combos for common actions
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
@@ -116,7 +111,8 @@
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.erb$" . nxhtml-mode))
+;; this broke when updating emacs & auqamacs
+;;(add-to-list 'auto-mode-alist '("\\.erb$" . nxhtml-mode))
 
 ;;add git gutter minor mode
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/git-gutter.el")
@@ -130,11 +126,11 @@
 (setq js-indent-level 2)
 
 ;;disable line limit / line wrap
-(setq fill-column 380)
-(auto-fill-mode -1)
-(remove-hook 'text-mode-hook #'turn-on-auto-fill)
-(turn-off-auto-fill)
-(add-hook 'html-mode-hook 'turn-off-auto-fill)
+;;(setq fill-column 380)
+;;(auto-fill-mode -1)
+;;(remove-hook 'text-mode-hook #'turn-on-auto-fill)
+;;(turn-off-auto-fill)
+;;(add-hook 'html-mode-hook 'turn-off-auto-fill)
 
 ;;generate etags for ruby project
 (defun build-ctags ()
