@@ -10,7 +10,8 @@ setopt auto_cd
 
 # use vim as an editor
 # export EDITOR=vim
-export EDITOR="/usr/bin/emacs"
+# export EDITOR="/usr/bin/emacs"
+export EDITOR="emacs"
 
 # aliases
 if [ -e "$HOME/.aliases" ]; then
@@ -57,7 +58,8 @@ export PS1="\[\033[G\]$PS1"
 setopt histignoredups
 
 # keep TONS of history
-export HISTSIZE=4096
+export HISTSIZE=10000
+export HISTCONTROL=erasedups
 
 # look for ey config in project dirs
 export EYRC=./.eyrc
@@ -96,7 +98,7 @@ export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 # export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 # export RUBY_GC_MALLOC_LIMIT=100000000
 
-export RUBYOPT=rubygems
+export RUBYOPT="rubygems"
 
 #java home
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
@@ -228,6 +230,38 @@ function open_branch_gh { open http://github.com/$(whoami)/`basename \`pwd\``/tr
 #better cat with syntax highlights
 alias cat="pygmentize -g"
 
+ptests () {
+	bundle exec rake test:prepare_parallel
+	bundle exec rake test:no_rails
+	echo "***** UNITS"
+	date
+	time bundle exec rake 'parallel:test[6, ^test/unit]'
+	echo "***** FUNCTIONAL/INTEGRATION"
+	date
+	time bundle exec rake 'parallel:test[6, ^test/functional|^test/integ]'
+	echo "***** ENDRUN"
+	date
+}
+
+#better parallel tests
+function runtests {
+  ber test:prepare_parallel
+  ber test:no_rails
+
+  echo "***** UNITS"
+  date
+  time ber 'parallel:test[^test/unit]'
+
+  echo "***** FUNCTIONAL/INTEGRATION"
+  date
+  time ber 'parallel:test[^test/functional|^test/integ]' 
+
+  echo "***** ENDRUN"
+  date
+}
+
+alias ber="bundle exec rake"
+
 # finder
 
 #this needs a fix for zhsell new terminal doesn't have correct dir
@@ -268,3 +302,18 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 CC=/usr/bin/gcc-4.2
 
 export PATH="/Users/danmayer/Developer/Cellar/node/0.10.12/bin/node:$PATH"
+
+export LDFLAGS="-L/opt/boxen/homebrew/opt/mysql55/lib"
+export CPPFLAGS="-I/opt/boxen/homebrew/opt/mysql55/include"
+
+RUBY_HEAP_MIN_SLOTS=2000000
+RUBY_HEAP_SLOTS_INCREMENT=1600000
+RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+RUBY_GC_MALLOC_LIMIT=9000000000
+RUBY_HEAP_FREE_MIN=500000
+
+export GREP_OPTIONS='--color=auto'
+# export JAVA_HOME=/Library/Java/Home
+
+#homebrew
+PATH=/usr/local/sbin:$PATH

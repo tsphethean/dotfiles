@@ -139,7 +139,7 @@
 ;;; Code:
 
 (require 'cl)
-(require 'assoc)
+;;(require 'assoc)
 (require 'easymenu)
 
 

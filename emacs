@@ -12,6 +12,8 @@
 ;; removed as this is bad when sharing git files and others don't makes code review harder
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(require 'tramp)
+(setq tramp-default-method "ssh")
 
 (setq load-path (append
                  '("/opt/local/share/emacs/site-lisp"
@@ -21,9 +23,9 @@
                  load-path))
 
 ;; textmate bindings for some nicer key combos for common actions
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
-(require 'textmate)
-(textmate-mode)
+;;(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
+;;(require 'textmate)
+;;(textmate-mode)
 
 ;;ruby-test to help with ruby testing
 ;;check / port ruby-test from work mac, seems to break elsewhere... also move all my ~/.emacs.d files into dotfile or emacs starter project and reference those files...
@@ -117,8 +119,8 @@
 (add-to-list 'auto-mode-alist '("\\.erb$" . nxhtml-mode))
 
 ;;add git gutter minor mode
-(add-to-list 'load-path "~/.emacs.d/vendor/git-gutter.el")
-(require 'git-gutter)
+;;(add-to-list 'load-path "~/.emacs.d/vendor/git-gutter.el")
+;;(require 'git-gutter)
 
 ;; If you enable global minor mode
 ;; this is broken fix later

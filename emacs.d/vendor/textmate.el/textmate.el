@@ -174,13 +174,13 @@ the project root.")
   (define-key ido-completion-map [up] 'ido-prev-match)
   (define-key ido-completion-map [down] 'ido-next-match))
 
-(defun textmate-completing-read (&rest args)
-  "Uses `*textmate-completing-function-alist*' to call the appropriate completing
-function."
-  (let ((reading-fn
-         (cadr (assoc textmate-completing-library
-                      *textmate-completing-function-alist*))))
-  (apply (symbol-function reading-fn) args)))
+;; (defun textmate-completing-read (&rest args)
+;;   "Uses `*textmate-completing-function-alist*' to call the appropriate completing
+;; function."
+;;   (let ((reading-fn
+;;          (cadr (assoc textmate-completing-library
+;;                       *textmate-completing-function-alist*))))
+;;   (apply (symbol-function reading-fn) args)))
 
 ;;; allow-line-as-region-for-function adds an "-or-line" version of
 ;;; the given comment function which (un)comments the current line is
@@ -243,55 +243,55 @@ Otherwise, expand the current region to select the lines the region touches."
             transient-mark-mode t))))
 
 ;; http://chopmo.blogspot.com/2008/09/quickly-jumping-to-symbols.html
-(defun textmate-goto-symbol ()
-  "Update the imenu index and then use ido to select a symbol to navigate to.
-Symbols matching the text at point are put first in the completion list."
-  (interactive)
-  (imenu--make-index-alist)
-  (let ((name-and-pos '())
-        (symbol-names '()))
-    (flet ((addsymbols (symbol-list)
-                       (when (listp symbol-list)
-                         (dolist (symbol symbol-list)
-                           (let ((name nil) (position nil))
-                             (cond
-                              ((and (listp symbol) (imenu--subalist-p symbol))
-                               (addsymbols symbol))
+;; (defun textmate-goto-symbol ()
+;;   "Update the imenu index and then use ido to select a symbol to navigate to.
+;; Symbols matching the text at point are put first in the completion list."
+;;   (interactive)
+;;   (imenu--make-index-alist)
+;;   (let ((name-and-pos '())
+;;         (symbol-names '()))
+;;     (flet ((addsymbols (symbol-list)
+;;                        (when (listp symbol-list)
+;;                          (dolist (symbol symbol-list)
+;;                            (let ((name nil) (position nil))
+;;                              (cond
+;;                               ((and (listp symbol) (imenu--subalist-p symbol))
+;;                                (addsymbols symbol))
 
-                              ((listp symbol)
-                               (setq name (car symbol))
-                               (setq position (cdr symbol)))
+;;                               ((listp symbol)
+;;                                (setq name (car symbol))
+;;                                (setq position (cdr symbol)))
 
-                              ((stringp symbol)
-                               (setq name symbol)
-                               (setq position
-                                     (get-text-property 1 'org-imenu-marker
-                                                        symbol))))
+;;                               ((stringp symbol)
+;;                                (setq name symbol)
+;;                                (setq position
+;;                                      (get-text-property 1 'org-imenu-marker
+;;                                                         symbol))))
 
-                             (unless (or (null position) (null name))
-                               (add-to-list 'symbol-names name)
-                               (add-to-list 'name-and-pos (cons name position))))))))
-      (addsymbols imenu--index-alist))
-    ;; If there are matching symbols at point, put them at the beginning
-    ;; of `symbol-names'.
-    (let ((symbol-at-point (thing-at-point 'symbol)))
-      (when symbol-at-point
-        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
-               (matching-symbols (delq nil
-                                       (mapcar
-                                        (lambda (symbol)
-                                          (if (string-match regexp symbol)
-                                              symbol))
-                                        symbol-names))))
-          (when matching-symbols
-            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
-            (mapc (lambda (symbol)
-                    (setq symbol-names (cons symbol
-                                             (delete symbol symbol-names))))
-                  matching-symbols)))))
-    (let* ((selected-symbol (ido-completing-read "Symbol? " (reverse symbol-names)))
-           (position (cdr (assoc selected-symbol name-and-pos))))
-      (goto-char (if (overlayp position) (overlay-start position) position)))))
+;;                              (unless (or (null position) (null name))
+;;                                (add-to-list 'symbol-names name)
+;;                                (add-to-list 'name-and-pos (cons name position))))))))
+;;       (addsymbols imenu--index-alist))
+;;     ;; If there are matching symbols at point, put them at the beginning
+;;     ;; of `symbol-names'.
+;;     (let ((symbol-at-point (thing-at-point 'symbol)))
+;;       (when symbol-at-point
+;;         (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
+;;                (matching-symbols (delq nil
+;;                                        (mapcar
+;;                                         (lambda (symbol)
+;;                                           (if (string-match regexp symbol)
+;;                                               symbol))
+;;                                         symbol-names))))
+;;           (when matching-symbols
+;;             (sort matching-symbols (lambda (a b) (> (length a) (length b))))
+;;             (mapc (lambda (symbol)
+;;                     (setq symbol-names (cons symbol
+;;                                              (delete symbol symbol-names))))
+;;                   matching-symbols)))))
+;;     (let* ((selected-symbol (ido-completing-read "Symbol? " (reverse symbol-names)))
+;;            (position (cdr (assoc selected-symbol name-and-pos))))
+;;       (goto-char (if (overlayp position) (overlay-start position) position)))))
 
 (defun textmate-goto-file ()
   "Uses your completing read to quickly jump to a file in a project."
@@ -451,17 +451,17 @@ A place is considered `tab-width' character columns."
   (let (deactivate-mark) (textmate-column-down arg)))
 
 ;;;###autoload
-(define-minor-mode textmate-mode "TextMate Emulation Minor Mode"
-  :lighter " mate" :global t :keymap *textmate-mode-map*
-  (add-hook 'ido-setup-hook 'textmate-ido-fix)
-  (textmate-define-comment-line)
-  ; activate preferred completion library
-  (dolist (mode *textmate-completing-minor-mode-alist*)
-    (if (eq (car mode) textmate-completing-library)
-        (funcall (cadr mode) t)
-      (when (fboundp
-             (cadr (assoc (car mode) *textmate-completing-function-alist*)))
-        (funcall (cadr mode) -1)))))
+;; (define-minor-mode textmate-mode "TextMate Emulation Minor Mode"
+;;   :lighter " mate" :global t :keymap *textmate-mode-map*
+;;   (add-hook 'ido-setup-hook 'textmate-ido-fix)
+;;   (textmate-define-comment-line)
+;;   ; activate preferred completion library
+;;   (dolist (mode *textmate-completing-minor-mode-alist*)
+;;     (if (eq (car mode) textmate-completing-library)
+;;         (funcall (cadr mode) t)
+;;       (when (fboundp
+;;              (cadr (assoc (car mode) *textmate-completing-function-alist*)))
+;;         (funcall (cadr mode) -1)))))
 
 (provide 'textmate)
 ;;; textmate.el ends here
